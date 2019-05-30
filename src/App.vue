@@ -1,12 +1,30 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+<div id="app">
+  <v-app>
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout justify-center align-center>
+            <Setup />
+        </v-layout>
+      </v-container>
+    </v-content>
+    <!-- <div id="app">
+      <div id="nav">
+        <Setup />
+      </div>
+    </div> -->
+  </v-app>
   </div>
 </template>
+<script>
+import Setup from '@/views/Setup';
+export default {
+  components: {
+    Setup
+  }
+  
+}
+</script>
 
 <style>
 #app {

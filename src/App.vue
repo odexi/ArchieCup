@@ -4,23 +4,23 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout justify-center align-center>
-            <Setup />
+            <ContentArea />
         </v-layout>
       </v-container>
     </v-content>
     <!-- <div id="app">
       <div id="nav">
-        <Setup />
+        <ContentArea />
       </div>
     </div> -->
   </v-app>
   </div>
 </template>
 <script>
-import Setup from '@/views/Setup';
+import ContentArea from '@/views/ContentArea';
 export default {
   components: {
-    Setup
+    ContentArea
   }
   
 }

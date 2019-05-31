@@ -8,29 +8,21 @@
     </div>
     <div style="display: block; height: 80px;"></div>
     <v-layout wrap>
-      <v-flex xs12 v-for="(team) in teams"
-      :key="team.id"
-      >
-      <div>
-
-      </div>
-        <v-input
-        >
-          Default Slot
-        </v-input>
-      </v-flex>
+      <Setup></Setup>
+      
     </v-layout>
 
   </div>
 </template>
 
 <script>
-import Team from '@/models/team.js'
+import Setup from '@/components/Setup'
 import { mapGetters, mapState } from 'vuex'
 
 export default {
-  name: 'setup',
+  
   components: {
+    Setup
   },
   computed: {
     ...mapState([
@@ -46,11 +38,6 @@ export default {
 
   },
   mounted () {
-    let team = new Team({
-
-    });
-    console.log(team)
-    this.$store.dispatch('addTeam', team)
   }
 }
 </script>

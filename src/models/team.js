@@ -3,7 +3,7 @@ const guid = require('uuid/v4');
 export default class Team {
 
         id = null;
-        name = '';
+        team = '';
         player = '';
         playedGames = 0;
         totalPoints = 0;
@@ -17,5 +17,7 @@ export default class Team {
 
         constructor(o, store) {
           this.id = guid();
+          this.team = o.team;
+          this.player = o.player;
         }
 }

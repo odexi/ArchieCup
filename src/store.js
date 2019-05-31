@@ -11,7 +11,7 @@ export default new Vuex.Store({
   },
   mutations: {
     ADD_NEW(state, team) {
-      state.teams.splice(1, 0, team)
+      state.teams.splice(state.teams.length, 0, team)
     },
     EDIT_TEAM(state, payload) {
       Object.assign(state.teams.find(t => t.id === payload.id).player = payload.editedTeam.player);

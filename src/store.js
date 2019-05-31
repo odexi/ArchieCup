@@ -10,7 +10,7 @@ export default new Vuex.Store({
     teams: []
   },
   mutations: {
-    ADD_NEW(state, team) {
+    NEW_TEAM(state, team) {
       state.teams.splice(state.teams.length, 0, team)
     },
     EDIT_TEAM(state, payload) {
@@ -23,15 +23,15 @@ export default new Vuex.Store({
   },
   actions: {
     addTeam({ commit }, team) {
-      commit('ADD_NEW', team)
+      commit(types.NEW_TEAM, team)
     },
 
     editTeam({ commit }, payload) {
-      commit('EDIT_TEAM', payload)
+      commit(types.EDIT_TEAM, payload)
     },
 
     removeTeam({ commit }, id) {
-      commit('REMOVE_TEAM', id)
+      commit(types.REMOVE_TEAM, id)
     }
   },
   

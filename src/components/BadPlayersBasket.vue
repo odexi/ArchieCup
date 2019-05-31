@@ -116,10 +116,9 @@ export default {
       this.dialog = true;
     },
 
-    deleteTeam(item) {
-      const index = this.teams.indexOf(item);
+    deleteTeam(id) {
       confirm("Are you sure you want to delete this team?") &&
-        this.$store.dispatch("removeTeam", this.teams[index].id);
+        this.$store.dispatch("removeTeam", id);
     },
 
     close() {

@@ -40,8 +40,8 @@
       class="elevation-1"
     >
       <template v-slot:items="props">
-        <td>{{ props.item.player }}</td>
-        <td>{{ props.item.team }}</td>
+        <td style="text-align: left;">{{ props.item.player }}</td>
+        <td style="text-align: left;">{{ props.item.team }}</td>
         <td class="justify-center layout px-0">
           <v-btn
             style="text-transform: none !important;"

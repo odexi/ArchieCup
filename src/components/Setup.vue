@@ -11,6 +11,9 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <div style="margin-top: 40px;">
+      <v-btn color="primary" dark class="mb-2" large>Start the tournament</v-btn>
+    </div>
   </div>
 </template>
 

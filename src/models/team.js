@@ -5,6 +5,7 @@ export default class Team {
         id = null;
         team = '';
         player = '';
+        goodPlayer = false;
         playedGames = 0;
         totalPoints = 0;
         wins = 0;
@@ -19,5 +20,6 @@ export default class Team {
           this.id = guid();
           this.team = o.team;
           this.player = o.player;
+          this.goodPlayer = o.goodPlayer;
         }
 }

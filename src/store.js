@@ -18,7 +18,7 @@ export default new Vuex.Store({
       Object.assign(state.teams.find(t => t.id === payload.id).team = payload.editedTeam.team);
     },
     REMOVE_TEAM(state, id) {
-      state.teams.splice(state.teams.find(t => t.id === id), 1)
+      state.teams.splice(state.teams.findIndex(t => t.id === id), 1)
     },
   },
   actions: {

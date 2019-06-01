@@ -7,7 +7,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    teams: []
+    teams: [],
+    groups: []
   },
   mutations: {
     NEW_TEAM(state, team) {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     REMOVE_TEAM(state, id) {
       state.teams.splice(state.teams.findIndex(t => t.id === id), 1)
     },
+    SET_GROUPS(state, groups) {
+      state.groups = groups;
+    }
   },
   actions: {
     addTeam({ commit }, team) {
@@ -32,7 +36,11 @@ export default new Vuex.Store({
 
     removeTeam({ commit }, id) {
       commit(types.REMOVE_TEAM, id)
-    }
+    },
+
+    setTeamsToGroups({ commit }, groups) {
+      commit(types.SET_GROUPS, groups)
+    },
   },
   
 })

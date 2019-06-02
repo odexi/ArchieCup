@@ -8,7 +8,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     teams: [],
-    groups: []
+    groups: [],
+    gameOn: false
   },
   mutations: {
     NEW_TEAM(state, team) {
@@ -23,6 +24,7 @@ export default new Vuex.Store({
     },
     SET_GROUPS(state, groups) {
       state.groups = groups;
+      state.gameOn = true;
     }
   },
   actions: {

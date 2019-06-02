@@ -7,26 +7,41 @@
       </div>
     </div>
     <div style="display: block; height: 80px;"></div>
-    <v-layout wrap>
-      <Setup></Setup>
+    <v-container fluid>
       
+    <v-layout wrap row v-if="!gameOn">
+        <Setup></Setup>
     </v-layout>
-
+    <v-layout wrap v-if="gameOn">
+      <v-flex xs12 md8 lg8>
+        <Group v-for="group in groups" 
+        :key="group.id"
+        :group="group"
+        ></Group>
+      </v-flex>
+      <v-flex xs12 md4 lg4>
+        <h2>Tähän tulee matsit</h2>
+      </v-flex>
+        
+    </v-layout>
+    </v-container>
   </div>
 </template>
 
 <script>
 import Setup from '@/components/Setup'
+import Group from '@/components/Group'
 import { mapGetters, mapState } from 'vuex'
 
 export default {
   
   components: {
-    Setup
+    Setup,
+    Group
   },
   computed: {
     ...mapState([
-      'teams',
+      'teams', 'groups', 'gameOn'
     ]),
   },  
   data () {
@@ -38,6 +53,7 @@ export default {
 
   },
   mounted () {
+  
   }
 }
 </script>

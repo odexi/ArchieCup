@@ -33,6 +33,7 @@ export default {
   },
   computed: {
     ...mapState(["teams"])
+
   },
   watch: {},
   data() {
@@ -176,9 +177,10 @@ export default {
         team: testTeam.team,
         goodPlayer: testTeam.goodPlayer
       });
-    //console.log(team);
-    this.$store.dispatch("addTeam", team);
+      //console.log(team);
+      this.$store.dispatch("addTeam", team);
     }
+    this.drawGroups();
     
   }
 };

@@ -11,5 +11,7 @@ export default class Match {
 
         constructor(o, store) {
           this.id = guid();
+          this.homeTeamId = o.homeTeamId;
+          this.awayTeamId = o.awayTeamId;
         }
 }

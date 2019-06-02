@@ -5,6 +5,7 @@ export default class Group {
         id = null;
         teams = [];
         groupNumber = null;
+        matches = [];
 
         constructor(o, store) {
           this.id = guid();

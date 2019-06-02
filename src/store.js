@@ -25,6 +25,12 @@ export default new Vuex.Store({
     SET_GROUPS(state, groups) {
       state.groups = groups;
       state.gameOn = true;
+    },
+    GENERATE_MATCH(state, payload) {
+      state.groups.find(g => g.id === payload.groupId).matches.splice(
+        state.groups.find(g => g.id === payload.groupId).matches.length, 0,
+        payload.match
+      )
     }
   },
   actions: {
@@ -43,6 +49,10 @@ export default new Vuex.Store({
     setTeamsToGroups({ commit }, groups) {
       commit(types.SET_GROUPS, groups)
     },
+
+    generateMatch({ commit }, payload) {
+      commit(types.GENERATE_MATCH, payload)
+    }
   },
   
 })

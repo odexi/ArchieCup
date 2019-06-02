@@ -21,6 +21,7 @@
 import Team from "@/models/team.js";
 import Group from "@/models/group.js";
 import Setup from "@/components/Setup";
+import Match from "@/models/match.js";
 import GoodPlayersBasket from "@/components/GoodPlayersBasket";
 import BadPlayersBasket from "@/components/BadPlayersBasket";
 import { mapGetters, mapState } from "vuex";
@@ -32,7 +33,7 @@ export default {
     BadPlayersBasket
   },
   computed: {
-    ...mapState(["teams"])
+    ...mapState(["teams", "groups"])
 
   },
   watch: {},
@@ -97,8 +98,46 @@ export default {
         groupObjects.push(group)
       }
       
-
       this.$store.dispatch('setTeamsToGroups', groupObjects)
+      this.generateMatches();
+    },
+
+    generateMatches() {
+      for (let group of this.groups) {
+        let groupSize = group.length;
+        let teamsAgainst = group.teams;
+        let homeGame = true;
+        let teamIdsToPass = []
+        for (let team of group.teams) {
+          
+          for (let teamAgainst of teamsAgainst.filter(t => t.id !== team.id)) {
+
+            if (!teamIdsToPass.includes(teamAgainst.id)) {
+              if (homeGame) {
+              console.log("Match home: ", team.player, " away: ", teamAgainst.player)
+              let match = new Match ({
+                homeTeamId: team.id,
+                awayTeamId: teamAgainst.id
+              })
+
+              this.$store.dispatch('generateMatch', {match: match, groupId: group.id})
+              
+            }
+            if (!homeGame) {
+              console.log("away Match home: ", teamAgainst.player, " away: ", team.player)
+              let match = new Match ({
+                homeTeamId: teamAgainst.id,
+                awayTeamId: team.id
+              })
+              
+                this.$store.dispatch('generateMatch', {match: match, groupId: group.id})             
+              }
+              homeGame = !homeGame
+            }
+          }
+          teamIdsToPass.push(team.id)
+        }
+      }
     },
 
     isEven(n) {
@@ -167,6 +206,11 @@ export default {
       {
         player: 'Kettunen',
         team: 'San Jose Sharks',
+        goodPlayer: false
+      },
+      {
+        player: 'Petri',
+        team: 'Carolina Hurricanes',
         goodPlayer: false
       },
     ]

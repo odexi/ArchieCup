@@ -6,14 +6,12 @@ export default class Team {
         team = '';
         player = '';
         goodPlayer = false;
-        playedGames = 0;
-        totalPoints = 0;
+        gamesPlayed = 0;
+        points = 0;
         wins = 0;
-        draws = 0;
         loses = 0;
-        drawWins = 0;
-        drawLoses = 0;
-        goalsMade = 0;
+        overtimeLoses = 0;
+        goalsFor = 0;
         goalsAgainst = 0;
 
         constructor(o, store) {

@@ -1,6 +1,9 @@
 <template>
-  <div style="margin-top: 40px;">
+  <div style="margin-top: 40px; width: 100%;">
       <v-spacer></v-spacer>
+      <v-container grid-list-xl>
+      <v-layout row wrap>
+        <v-flex xs12 sm12 md8>
     <h2>Group {{group.groupNumber}}</h2>  
     <v-data-table :headers="headers" :items="group.teams" disable-initial-sort class="elevation-1">
       <template slot="headerCell" slot-scope="props">
@@ -24,14 +27,29 @@
         <td class="text-xs-right">{{ props.item.points }}</td>
       </template>
     </v-data-table>
+      </v-flex>
+      <v-flex xs12 sm12 md4>
+        <v-card style="width:100%; height: 400px; overflow-y: scroll;">
+          <Match v-for="match in group.matches" :key="match.id"
+            :match="match"
+          ></Match>
+        </v-card>
+      </v-flex>
+      </v-layout></v-container>
+    
   </div>
 </template>
 <script>
+import Match from '@/components/Match'
+
 export default {
-    props: {
-        group: Object,
-    },
-    data () {
+  components: {
+    Match
+  },
+  props: {
+      group: Object,
+  },
+  data () {
     return {
       headers: [
         {
@@ -66,7 +84,7 @@ export default {
         },
       ]
     }
-    }
+  }
 };
 </script>
 <style lang="scss" scoped>

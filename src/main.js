@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import Vuetify from 'vuetify/dist/vuetify.min.js'
+import VueNumberInput from '@chenfengyuan/vue-number-input';
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import 'material-design-icons-iconfont/dist/material-design-icons.css' // Ensure you are using css-loader
 
@@ -11,6 +12,7 @@ Vue.config.productionTip = false
 Vue.use(Vuetify, {
   iconfont: 'md'
 })
+Vue.component(VueNumberInput.name, VueNumberInput);
 
 new Vue({
   router,

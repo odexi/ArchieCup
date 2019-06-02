@@ -12,17 +12,11 @@
     <v-layout wrap row v-if="!gameOn">
         <Setup></Setup>
     </v-layout>
-    <v-layout wrap v-if="gameOn">
-      <v-flex xs12 md8 lg8>
+    <v-layout wrap row v-if="gameOn">
         <Group v-for="group in groups" 
         :key="group.id"
         :group="group"
         ></Group>
-      </v-flex>
-      <v-flex xs12 md4 lg4>
-        <h2>Tähän tulee matsit</h2>
-      </v-flex>
-        
     </v-layout>
     </v-container>
   </div>
@@ -31,13 +25,14 @@
 <script>
 import Setup from '@/components/Setup'
 import Group from '@/components/Group'
+
 import { mapGetters, mapState } from 'vuex'
 
 export default {
   
   components: {
     Setup,
-    Group
+    Group,
   },
   computed: {
     ...mapState([

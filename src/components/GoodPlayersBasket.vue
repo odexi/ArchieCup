@@ -74,7 +74,11 @@ import { mapGetters, mapState } from "vuex";
 export default {
   name: "setup",
   computed: {
-    ...mapState(["teams"]),
+    teams: {
+      get() {
+        return this.$store.state.tournament.teams;
+      }
+    },
 
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";

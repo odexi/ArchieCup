@@ -7,42 +7,49 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    teams: [],
-    groups: [],
+    tournament: {
+      id: '',
+      name: '',
+      groups: [],
+      teams: [],
+    },  
     gameOn: false
   },
   mutations: {
+    NEW_TOURNAMENT(state, id) {
+      state.tournament.id = id;
+    },
     NEW_TEAM(state, team) {
-      state.teams.splice(state.teams.length, 0, team)
+      state.tournament.teams.splice(state.tournament.teams.length, 0, team)
     },
     EDIT_TEAM(state, payload) {
-      Object.assign(state.teams.find(t => t.id === payload.id).player = payload.editedTeam.player);
-      Object.assign(state.teams.find(t => t.id === payload.id).team = payload.editedTeam.team);
+      Object.assign(state.tournament.teams.find(t => t.id === payload.id).player = payload.editedTeam.player);
+      Object.assign(state.tournament.teams.find(t => t.id === payload.id).team = payload.editedTeam.team);
     },
     REMOVE_TEAM(state, id) {
-      state.teams.splice(state.teams.findIndex(t => t.id === id), 1)
+      state.tournament.teams.splice(state.tournament.teams.findIndex(t => t.id === id), 1)
     },
     SET_GROUPS(state, groups) {
-      state.groups = groups;
+      state.tournament.groups = groups;
       state.gameOn = true;
     },
     MIX_TEAMS(state, newTeams) {
-      state.teams = newTeams;
+      state.tournament.teams = newTeams;
     },
     GENERATE_MATCH(state, payload) {
-      state.groups.find(g => g.id === payload.groupId).matches.splice(
-        state.groups.find(g => g.id === payload.groupId).matches.length, 0,
+      state.tournament.groups.find(g => g.id === payload.groupId).matches.splice(
+        state.tournament.groups.find(g => g.id === payload.groupId).matches.length, 0,
         payload.match
       )
     },
     SUBMIT_SCORE(state, matchResult) {
-      state.groups.find(g => g.id === matchResult.groupId).matches
+      state.tournament.groups.find(g => g.id === matchResult.groupId).matches
       .find(m => m.id === matchResult.matchId).matchResult = matchResult;
 
-      let winner = state.groups.find(g => g.id === matchResult.groupId).teams
+      let winner = state.tournament.groups.find(g => g.id === matchResult.groupId).teams
       .find(t => t.id === matchResult.winner);
 
-      let loser = state.groups.find(g => g.id === matchResult.groupId).teams
+      let loser = state.tournament.groups.find(g => g.id === matchResult.groupId).teams
       .find(t => t.id === matchResult.loser);
 
       winner.gamesPlayed++;
@@ -67,11 +74,15 @@ export default new Vuex.Store({
       loser.goalsFor = loser.goalsFor + matchResult.loserScore;
       loser.goalsAgainst = loser.goalsAgainst + matchResult.winnerScore;
 
-      state.groups.find(g => g.id === matchResult.groupId).matches
+      state.tournament.groups.find(g => g.id === matchResult.groupId).matches
       .find(m => m.id === matchResult.matchId).scoresSubmitted = true;
     }
   },
   actions: {
+    newTournament({ commit }, id) {
+      commit(types.NEW_TOURNAMENT, id)
+    },
+
     addTeam({ commit }, team) {
       commit(types.NEW_TEAM, team)
     },

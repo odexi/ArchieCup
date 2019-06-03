@@ -7,7 +7,9 @@
       </div>
     </div>
     <div style="display: block; height: 80px;"></div>
-    <v-container fluid>
+    <p>Tournament id: {{tournamentId}}</p>
+    <v-btn @click="saveTournament">Save</v-btn>
+    <v-container fluid v-if="tournamentId !== ''">
       
     <v-layout wrap row v-if="!gameOn">
         <Setup></Setup>
@@ -19,25 +21,49 @@
         ></Group>
     </v-layout>
     </v-container>
+    <v-container fluid v-if="tournamentId === ''">
+      <v-layout wrap row>
+          <Login></Login>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 
 <script>
+import Login from '@/components/Login'
 import Setup from '@/components/Setup'
 import Group from '@/components/Group'
+
+import PostsService from '@/services/PostsService'
 
 import { mapGetters, mapState } from 'vuex'
 
 export default {
   
   components: {
+    Login,
     Setup,
     Group,
   },
   computed: {
     ...mapState([
-      'teams', 'groups', 'gameOn'
+      'gameOn', 'tournament'
     ]),
+    groups: {
+      get() {
+        return this.$store.state.tournament.groups;
+      }
+    },
+    teams: {
+      get() {
+        return this.$store.state.tournament.teams;
+      }
+    },
+    tournamentId: {
+      get() {
+        return this.$store.state.tournament.id;
+      }
+    },
   },  
   data () {
     return {
@@ -45,7 +71,15 @@ export default {
     }
   },
   methods: {
+    async saveTournament() {
+      let result = await PostsService.saveTournament({
+        tournament: this.tournament,
+      })
 
+      console.log(result)
+      // this.$router.push({ name: 'Posts' })
+    
+    }
   },
   mounted () {
   

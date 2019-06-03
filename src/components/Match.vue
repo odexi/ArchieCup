@@ -47,7 +47,18 @@ export default {
         groupId: String,
     },
     computed: {
-    ...mapState(["teams", "groups"]),
+    // ...mapState(["teams",]),
+
+    groups: {
+      get() {
+        return this.$store.state.tournament.groups;
+      }
+    },
+    teams: {
+      get() {
+        return this.$store.state.tournament.teams;
+      }
+    },
 
     winnerFound () {
        return this.homeScore - this.awayScore !== 0 && !this.groups

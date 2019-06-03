@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <v-container grid-list-xl text-xs-center>
       <v-layout row wrap>
         <v-flex xs12 sm12 md6>
@@ -36,7 +37,17 @@ export default {
     BadPlayersBasket
   },
   computed: {
-    ...mapState(["teams", "groups"])
+
+    groups: {
+      get() {
+        return this.$store.state.tournament.groups;
+      }
+    },
+    teams: {
+      get() {
+        return this.$store.state.tournament.teams;
+      }
+    },
 
   },
   watch: {},
@@ -186,10 +197,16 @@ export default {
         array[index] = temp;
       }
       return array;
-    }
-    
+    },
+
   },
   mounted() {
+
+    // async getPosts () {
+    //   const response = await PostsService.fetchPosts()
+    //   this.posts = response.data
+    // }
+
     let testTeams = [
       {
         player: 'Otto',

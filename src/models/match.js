@@ -6,7 +6,6 @@ export default class Match {
         homeTeamId = null;
         awayTeamId = null;
         matchResult = {};
-        overtimeGame = false;
         scoresSubmitted = false;
 
         constructor(o, store) {

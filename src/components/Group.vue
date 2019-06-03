@@ -32,6 +32,7 @@
         <v-card style="width:100%; height: 400px; overflow-y: scroll;">
           <Match v-for="match in group.matches" :key="match.id"
             :match="match"
+            :groupId="group.id"
           ></Match>
         </v-card>
       </v-flex>

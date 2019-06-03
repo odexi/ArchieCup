@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-container grid-list-xs fluid>
-        <v-layout wrap>
+        <v-layout wrap ref="matchObject">
           <v-flex xs12 sm6 style="position: relative">
               <div class="vertical-aligned-match-stuff">
                   <h3>{{ teams.find(t => t.id === match.homeTeamId).player }}</h3>
@@ -9,7 +9,7 @@
               
           </v-flex>
           <v-flex xs12 sm6>
-              <number-input :value="0" inline center controls></number-input>
+              <number-input :value="homeScore" v-model="homeScore" inline center controls></number-input>
           </v-flex>
           <v-flex xs12 sm6 style="position: relative">
               <div class="vertical-aligned-match-stuff">
@@ -18,17 +18,17 @@
               
           </v-flex>
           <v-flex xs12 sm6>
-              <number-input :value="0" inline center controls></number-input>
+              <number-input :value="awayScore" v-model="awayScore" inline center controls></number-input>
           </v-flex>
           <v-flex xs12 style="position: relative">
               <div class="vertical-aligned-match-stuff" style="float: left;">
                   <v-checkbox
-                    v-model="checkbox"
+                    v-model="otWin"
                     :label="'Overtime win'"
                     ></v-checkbox>
               </div>
               <div style="float: right;">
-                  <v-btn>Submit</v-btn>
+                  <v-btn :disabled="!winnerFound" @click="submitScore(homeScore, awayScore, otWin)">Submit</v-btn>
               </div>
           </v-flex>
         </v-layout>
@@ -44,17 +44,54 @@ export default {
     },
     props: {
         match: Object,
+        groupId: String,
     },
     computed: {
-    ...mapState(["teams"])
+    ...mapState(["teams"]),
+
+    winnerFound () {
+       return this.homeScore - this.awayScore !== 0 ?  true : false;
+    },
 
     },
     data () {
       return {
-        checkbox: false,
+        otWin: false,
+        homeScore: 0,
+        awayScore: 0
       }
     },
     methods: {
+        submitScore(homeScore, awayScore, otWin) {
+            this.$refs.matchObject.style.backgroundColor = '#42d9f4';
+            //Home wins
+            if (homeScore - awayScore > 0) {
+                let matchResult = {
+                    winner: this.match.homeTeamId,
+                    loser: this.match.awayTeamId,
+                    overTime: otWin,
+                    winnerScore: homeScore,
+                    loserScore: awayScore,
+                    groupId: this.groupId,
+                }
+
+                this.$store.dispatch('submitScore', matchResult);
+            }
+
+            //Away wins
+            if (homeScore - awayScore < 0) {
+                let matchResult = {
+                    winner: this.match.awayTeamId,
+                    loser: this.match.homeTeamId,
+                    overTime: otWin,
+                    winnerScore: awayScore,
+                    loserScore: homeScore,
+                    groupId: this.groupId,
+                }
+                this.$store.dispatch('submitScore', matchResult);
+            }
+
+        }
     }
 }
 </script>

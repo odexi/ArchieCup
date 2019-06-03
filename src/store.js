@@ -31,6 +31,35 @@ export default new Vuex.Store({
         state.groups.find(g => g.id === payload.groupId).matches.length, 0,
         payload.match
       )
+    },
+    SUBMIT_SCORE(state, matchResult) {
+      let winner = state.groups.find(g => g.id === matchResult.groupId).teams
+      .find(t => t.id === matchResult.winner);
+
+      let loser = state.groups.find(g => g.id === matchResult.groupId).teams
+      .find(t => t.id === matchResult.loser);
+
+      winner.gamesPlayed++;
+      loser.gamesPlayed++;
+
+      winner.wins++;
+      
+
+      winner.points = winner.points + 2;
+
+      if (matchResult.overTime) {
+        loser.points++;
+        loser.overtimeLoses++;
+      }
+      else {
+        loser.loses++
+      }
+
+      winner.goalsFor = winner.goalsFor + matchResult.winnerScore;
+      winner.goalsAgainst = winner.goalsAgainst + matchResult.loserScore;
+
+      loser.goalsFor = loser.goalsFor + matchResult.loserScore;
+      loser.goalsAgainst = loser.goalsAgainst + matchResult.winnerScore;
     }
   },
   actions: {
@@ -52,6 +81,10 @@ export default new Vuex.Store({
 
     generateMatch({ commit }, payload) {
       commit(types.GENERATE_MATCH, payload)
+    },
+
+    submitScore({ commit }, matchResult) {
+      commit(types.SUBMIT_SCORE, matchResult)
     }
   },
   

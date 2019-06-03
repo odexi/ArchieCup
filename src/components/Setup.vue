@@ -11,8 +11,11 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <div style="margin-top: 40px;">
-      <v-btn color="primary" dark class="mb-2" large @click="drawGroups">Start the tournament</v-btn>
+    <div style="margin-top: 20px;">
+      <v-btn color="primary" dark class="mb-2" large @click="mixTeams">Mix teams</v-btn>
+    </div>
+    <div style="margin-top: 20px;">
+      <v-btn color="success" dark class="mb-2" large @click="drawGroups">Start the tournament</v-btn>
     </div>
   </div>
 </template>
@@ -41,6 +44,26 @@ export default {
     return {};
   },
   methods: {
+    mixTeams() {
+      let teamsToBeMixed = this.teams.map(t => t.team);
+      console.log(teamsToBeMixed)
+
+      let updatedTeams = [];
+
+      for (let team of this.teams) {
+        let index = this.getRandomIndex(teamsToBeMixed.length);
+        let t = team;
+        let updatedTeam = Object.assign(t, team);
+        updatedTeam.team = teamsToBeMixed[index];
+        
+        updatedTeams.push(updatedTeam);
+
+        teamsToBeMixed.splice(index, 1);
+      }
+      this.$store.dispatch('mixTeams', updatedTeams)
+
+      console.log(updatedTeams)
+    },
     drawGroups() {
       let group1 = [];
       let group2 = [];
@@ -175,41 +198,41 @@ export default {
       },
       {
         player: 'Arto',
-        team: 'Detroit Red Wings',
+        team: 'St. Louis Blues',
         goodPlayer: true
       },
       {
         player: 'Ville',
-        team: 'New York Rangers',
+        team: 'Dallas Stars',
         goodPlayer: false
       },
       {
         player: 'Lauri',
-        team: 'Tampa Bay Ligtning',
+        team: 'Ottawa Senators',
         goodPlayer: true
       },
       {
         player: 'Mikko',
-        team: 'Vancouver Canucks',
-        goodPlayer: false
-      },
-      {
-        player: 'Santeri',
-        team: 'Washington Capitals',
-        goodPlayer: true
-      },
-      {
-        player: 'Mika',
-        team: 'Philadephia Flyers',
-        goodPlayer: false
-      },
-      {
-        player: 'Kettunen',
         team: 'San Jose Sharks',
         goodPlayer: false
       },
       {
-        player: 'Petri',
+        player: 'Miro',
+        team: 'Nashville Predators',
+        goodPlayer: false
+      },
+      {
+        player: 'Jere',
+        team: 'Arizona Coyotes',
+        goodPlayer: false
+      },
+      {
+        player: 'Erkki',
+        team: 'New York Islanders',
+        goodPlayer: true
+      },
+      {
+        player: 'Mika',
         team: 'Carolina Hurricanes',
         goodPlayer: false
       },
@@ -224,7 +247,7 @@ export default {
       //console.log(team);
       this.$store.dispatch("addTeam", team);
     }
-    this.drawGroups();
+    //this.drawGroups();
     
   }
 };

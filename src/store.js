@@ -26,6 +26,9 @@ export default new Vuex.Store({
       state.groups = groups;
       state.gameOn = true;
     },
+    MIX_TEAMS(state, newTeams) {
+      state.teams = newTeams;
+    },
     GENERATE_MATCH(state, payload) {
       state.groups.find(g => g.id === payload.groupId).matches.splice(
         state.groups.find(g => g.id === payload.groupId).matches.length, 0,
@@ -91,7 +94,11 @@ export default new Vuex.Store({
 
     submitScore({ commit }, matchResult) {
       commit(types.SUBMIT_SCORE, matchResult)
-    }
+    },
+
+    mixTeams({ commit }, newTeams) {
+      commit(types.MIX_TEAMS, newTeams)
+    },
   },
   
 })

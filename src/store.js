@@ -33,6 +33,9 @@ export default new Vuex.Store({
       )
     },
     SUBMIT_SCORE(state, matchResult) {
+      state.groups.find(g => g.id === matchResult.groupId).matches
+      .find(m => m.id === matchResult.matchId).matchResult = matchResult;
+
       let winner = state.groups.find(g => g.id === matchResult.groupId).teams
       .find(t => t.id === matchResult.winner);
 
@@ -60,6 +63,9 @@ export default new Vuex.Store({
 
       loser.goalsFor = loser.goalsFor + matchResult.loserScore;
       loser.goalsAgainst = loser.goalsAgainst + matchResult.winnerScore;
+
+      state.groups.find(g => g.id === matchResult.groupId).matches
+      .find(m => m.id === matchResult.matchId).scoresSubmitted = true;
     }
   },
   actions: {

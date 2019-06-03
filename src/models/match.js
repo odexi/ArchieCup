@@ -5,9 +5,9 @@ export default class Match {
         id = null;
         homeTeamId = null;
         awayTeamId = null;
-        homeTeamScore = null;
-        awayTeamScore = null;
+        matchResult = {};
         overtimeGame = false;
+        scoresSubmitted = false;
 
         constructor(o, store) {
           this.id = guid();

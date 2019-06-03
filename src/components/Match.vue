@@ -47,10 +47,12 @@ export default {
         groupId: String,
     },
     computed: {
-    ...mapState(["teams"]),
+    ...mapState(["teams", "groups"]),
 
     winnerFound () {
-       return this.homeScore - this.awayScore !== 0 ?  true : false;
+       return this.homeScore - this.awayScore !== 0 && !this.groups
+       .find(g => g.id === this.groupId).matches
+       .find(m => m.id === this.match.id).scoresSubmitted ? true : false;
     },
 
     },
@@ -67,6 +69,7 @@ export default {
             //Home wins
             if (homeScore - awayScore > 0) {
                 let matchResult = {
+                    matchId: this.match.id,
                     winner: this.match.homeTeamId,
                     loser: this.match.awayTeamId,
                     overTime: otWin,
@@ -81,6 +84,7 @@ export default {
             //Away wins
             if (homeScore - awayScore < 0) {
                 let matchResult = {
+                    matchId: this.match.id,
                     winner: this.match.awayTeamId,
                     loser: this.match.homeTeamId,
                     overTime: otWin,

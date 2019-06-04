@@ -1,4 +1,6 @@
 export const NEW_TOURNAMENT = 'NEW_TOURNAMENT'
+export const SET_TOURNAMENT_ID = 'SET_TOURNAMENT_ID'
+export const SET_GAME = 'SET_GAME'
 export const NEW_TEAM = 'NEW_TEAM'
 export const EDIT_TEAM = 'EDIT_TEAM'
 export const REMOVE_TEAM = 'REMOVE_TEAM'

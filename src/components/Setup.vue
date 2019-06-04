@@ -29,6 +29,9 @@ import Match from "@/models/match.js";
 import GoodPlayersBasket from "@/components/GoodPlayersBasket";
 import BadPlayersBasket from "@/components/BadPlayersBasket";
 import { mapGetters, mapState } from "vuex";
+import PostsService from '@/services/PostsService'
+
+const guid = require('uuid/v4');
 
 export default {
   name: "setup",
@@ -37,6 +40,9 @@ export default {
     BadPlayersBasket
   },
   computed: {
+    ...mapState([
+        'tournament'
+        ]),
 
     groups: {
       get() {
@@ -172,6 +178,18 @@ export default {
           teamIdsToPass.push(team.id)
         }
       }
+      this.saveTournament();
+    },
+
+    async saveTournament() {
+      let id = guid();
+      await this.$store.dispatch('setTournamentId', id);
+      
+      let result = await PostsService.saveTournament({
+          tournament: this.tournament,
+      })
+
+      console.log(result)
     },
 
     isEven(n) {

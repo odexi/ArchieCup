@@ -2,8 +2,8 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var tournamentSchema = new Schema({
-  tournamentId: String,
-  tournamentName: String,
+  id: String,
+  name: String,
   teams: [
     {
       id: String,

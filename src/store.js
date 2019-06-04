@@ -13,10 +13,13 @@ export default new Vuex.Store({
       groups: [],
       teams: [],
     },  
-    gameOn: false
+    gameOn: false,
   },
   mutations: {
-    NEW_TOURNAMENT(state, id) {
+    SET_GAME(state, value) {
+      state.gameOn = value;
+    },
+    SET_TOURNAMENT_ID(state, id) {
       state.tournament.id = id;
     },
     NEW_TEAM(state, team) {
@@ -31,7 +34,6 @@ export default new Vuex.Store({
     },
     SET_GROUPS(state, groups) {
       state.tournament.groups = groups;
-      state.gameOn = true;
     },
     MIX_TEAMS(state, newTeams) {
       state.tournament.teams = newTeams;
@@ -79,8 +81,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    newTournament({ commit }, id) {
-      commit(types.NEW_TOURNAMENT, id)
+    setTournamentId({ commit }, id) {
+      commit(types.SET_TOURNAMENT_ID, id)
+    },
+    setGame({ commit }, value) {
+      commit(types.SET_GAME, value)
     },
 
     addTeam({ commit }, team) {

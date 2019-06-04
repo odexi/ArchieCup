@@ -7,21 +7,21 @@
       </div>
     </div>
     <div style="display: block; height: 80px;"></div>
-    <p>Tournament id: {{tournamentId}}</p>
+    <p v-if="tournamentId !== ''">Tournament id: {{tournamentId}}</p>
     <v-btn @click="saveTournament">Save</v-btn>
-    <v-container fluid v-if="tournamentId !== ''">
+    <v-container fluid v-if="gameOn">
       
-    <v-layout wrap row v-if="!gameOn">
+    <v-layout wrap row v-if="groups.length === 0">
         <Setup></Setup>
     </v-layout>
-    <v-layout wrap row v-if="gameOn">
+    <v-layout wrap row v-if="groups.length > 0">
         <Group v-for="group in groups" 
         :key="group.id"
         :group="group"
         ></Group>
     </v-layout>
     </v-container>
-    <v-container fluid v-if="tournamentId === ''">
+    <v-container fluid v-if="!gameOn">
       <v-layout wrap row>
           <Login></Login>
       </v-layout>
@@ -47,7 +47,7 @@ export default {
   },
   computed: {
     ...mapState([
-      'gameOn', 'tournament'
+      'gameOn', 'tournament', 'newTournament'
     ]),
     groups: {
       get() {

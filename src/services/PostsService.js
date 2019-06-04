@@ -6,9 +6,9 @@ export default {
     return Api().get('tournament')
   },
   async saveTournament (params) {
-    
-    // let response = await axios.post(Api + 'tournament', params)
-    // return response
     return Api().post('/', params)
+  },
+  async loadTournament (params) {
+    return Api().get('/'+ params.id)
   },
 }

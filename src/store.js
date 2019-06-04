@@ -16,6 +16,9 @@ export default new Vuex.Store({
     gameOn: false,
   },
   mutations: {
+    LOAD_TOURNAMENT(state, tournament) {
+      state.tournament = tournament;
+    },
     SET_GAME(state, value) {
       state.gameOn = value;
     },
@@ -114,6 +117,10 @@ export default new Vuex.Store({
 
     mixTeams({ commit }, newTeams) {
       commit(types.MIX_TEAMS, newTeams)
+    },
+
+    loadTournament({ commit }, tournament) {
+      commit(types.LOAD_TOURNAMENT, tournament)
     },
   },
   

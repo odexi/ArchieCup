@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
-var Tournament = require("./models/tournament");
+const Tournament = require("./models/tournament");
 
 const app = express()
 app.use(morgan('combined'))
@@ -17,13 +17,22 @@ db.once("open", function(callback){
   console.log("Connection Succeeded");
 });
 
-app.get('/posts', (req, res) => {
-    res.send(
-      [{
-        title: "Hello World!",
-        description: "Hi there! How are you?"
-      }]
-    )
+app.get('/:id', async (req, res) => {
+  console.log("JESJJSE")
+    console.log(req)
+    let tournament;
+
+    try {
+      tournament = await Tournament.find({
+        id: req.params.id,
+      });
+    } catch(e) {
+      console.log('Error retrieving course from db', e);
+      return res.status(500).send({error:  'Error retrieveing course from database'})
+    }
+    
+    console.log(tournament)
+    return res.status(200).send(tournament)
   })
 
 
@@ -34,18 +43,7 @@ app.post('/', (req, res) => {
     var description = req.body.description;
     console.log("Heheheee")
     console.log(req.body)
-    let newTournament = new Tournament(req.body.tournament
-    //     {
-    //     tournamentId: req.body.tournament.id,
-    //     tournamentName: 'Archie Cup',
-    //     groups: req.body.tournament.groups,
-    //     teams: req.body.tournament.teams
-    // }
-    )
-    // var new_post = new Tournament({
-    //   title: title,
-    //   description: description
-    // })
+    let newTournament = new Tournament(req.body.tournament)
   
     newTournament.save(function (error) {
       if (error) {

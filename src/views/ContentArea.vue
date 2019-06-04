@@ -7,7 +7,7 @@
       </div>
     </div>
     <div style="display: block; height: 80px;"></div>
-    <p v-if="tournamentId !== ''">Tournament id: {{tournamentId}}</p>
+    <p v-if="tournamentId !== ''" style="user-select: all">Tournament id: {{tournamentId}}</p>
     <v-btn @click="saveTournament">Save</v-btn>
     <v-container fluid v-if="gameOn">
       

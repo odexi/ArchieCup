@@ -3,7 +3,7 @@
         <v-btn @click="setGameOn">New tournament</v-btn>
         <div>
             <span>OR</span>
-            <v-text-field v-model="tournamentId" placeholder="Tournament id"></v-text-field>
+            <v-text-field v-model="tournamentId" type="text" placeholder="Tournament id"></v-text-field>
             <v-btn @click="loadTournament">Load tournament</v-btn>
         </div>
     </div>
@@ -28,8 +28,15 @@ export default {
         setGameOn() {
             this.$store.dispatch('setGame', true);
         },
-        loadTournament() {
+        async loadTournament() {
             console.log(this.tournamentId)
+      
+            let result = await PostsService.loadTournament({
+                id: this.tournamentId,
+            })
+
+            this.$store.dispatch('loadTournament', result.data[0]);
+            this.$store.dispatch('setGame', true);
         }
     }
 }

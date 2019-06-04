@@ -9,7 +9,7 @@
               
           </v-flex>
           <v-flex xs12 sm6>
-              <number-input :value="homeScore" v-model="homeScore" inline center controls></number-input>
+              <number-input :value="homeScore" v-model="homeScore" :readonly="!matchSubmitted" inline center controls></number-input>
           </v-flex>
           <v-flex xs12 sm6 style="position: relative">
               <div class="vertical-aligned-match-stuff">
@@ -18,12 +18,13 @@
               
           </v-flex>
           <v-flex xs12 sm6>
-              <number-input :value="awayScore" v-model="awayScore" inline center controls></number-input>
+              <number-input :value="awayScore" v-model="awayScore" :readonly="!matchSubmitted" inline center controls></number-input>
           </v-flex>
           <v-flex xs12 style="position: relative">
               <div class="vertical-aligned-match-stuff" style="float: left;">
                   <v-checkbox
                     v-model="otWin"
+                    :disabled="!matchSubmitted"
                     :label="'Overtime win'"
                     ></v-checkbox>
               </div>
@@ -65,6 +66,12 @@ export default {
        .find(g => g.id === this.groupId).matches
        .find(m => m.id === this.match.id).scoresSubmitted ? true : false;
     },
+
+    matchSubmitted () {
+        return !this.groups
+       .find(g => g.id === this.groupId).matches
+       .find(m => m.id === this.match.id).scoresSubmitted ? true : false;
+    }
 
     },
     data () {

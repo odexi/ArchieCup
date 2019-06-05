@@ -8,13 +8,13 @@
     </div>
     <div style="display: block; height: 80px;"></div>
     
-    <v-btn @click="saveTournament">Save</v-btn>
     <v-container fluid v-if="gameOn">
       
     <v-layout wrap row v-if="groups.length === 0">
         <Setup></Setup>
     </v-layout>
     <v-layout wrap row v-if="groups.length > 0">
+      <v-btn @click="saveTournament">Save</v-btn>
       <section v-if="tournamentId !== ''"><p>Tournament id: {{tournamentId}}</p></section>
         <Group v-for="group in groups" 
         :key="group.id"
@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     async saveTournament() {
-      let result = await PostsService.saveTournament({
+      let result = await PostsService.updateTournament({
         tournament: this.tournament,
       })
 

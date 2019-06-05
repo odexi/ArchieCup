@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-container grid-list-xs fluid>
-        <v-layout wrap ref="matchObject">
+        <v-layout wrap v-bind:class="{ submittedMatch: !matchSubmitted }">
           <v-flex xs12 sm6 style="position: relative">
               <div class="vertical-aligned-match-stuff">
                   <h3>{{ teams.find(t => t.id === match.homeTeamId).player }}</h3>
@@ -9,7 +9,7 @@
               
           </v-flex>
           <v-flex xs12 sm6>
-              <number-input :value="homeScore" v-model="homeScore" :readonly="!matchSubmitted" inline center controls></number-input>
+              <number-input :value="homeScore" v-model="getHomeScore" :readonly="!matchSubmitted" inline center controls></number-input>
           </v-flex>
           <v-flex xs12 sm6 style="position: relative">
               <div class="vertical-aligned-match-stuff">
@@ -18,12 +18,12 @@
               
           </v-flex>
           <v-flex xs12 sm6>
-              <number-input :value="awayScore" v-model="awayScore" :readonly="!matchSubmitted" inline center controls></number-input>
+              <number-input :value="awayScore" v-model="getAwayScore" :readonly="!matchSubmitted" inline center controls></number-input>
           </v-flex>
           <v-flex xs12 style="position: relative">
               <div class="vertical-aligned-match-stuff" style="float: left;">
                   <v-checkbox
-                    v-model="otWin"
+                    v-model="getOtValue"
                     :disabled="!matchSubmitted"
                     :label="'Overtime win'"
                     ></v-checkbox>
@@ -71,6 +71,61 @@ export default {
         return !this.groups
        .find(g => g.id === this.groupId).matches
        .find(m => m.id === this.match.id).scoresSubmitted ? true : false;
+    },
+
+    isSubmitted () {
+        return this.matchSubmitted ? 'submittedMatch' : '';
+    },
+
+    getHomeScore: {
+        get() {
+            if (this.match.matchResult.winner !== '') {
+                if (this.match.homeTeamId === this.match.matchResult.winner) {
+                    return this.match.matchResult.winnerScore;
+                }
+                else {
+                    return this.match.matchResult.loserScore;
+                }
+            }
+            else {
+                return 0;
+            }
+        },
+        set(value) {
+            this.homeScore = value;  
+        }
+        
+        
+    },
+
+    getAwayScore: {
+        get() {
+        if (this.match.matchResult.winner !== '') {
+                if (this.match.awayTeamId === this.match.matchResult.winner) {
+                    return this.match.matchResult.winnerScore;
+                }
+                else {
+                    return this.match.matchResult.loserScore;
+                }
+            }
+            else {
+                return 0;
+            }
+        },
+        set(value) {
+            this.awayScore = value;  
+        }
+    },
+
+    getOtValue: {
+        get() {
+            if (this.match.matchResult.winner !== '') { 
+                return this.match.matchResult.overTime;
+            }
+        },
+        set(value) {
+            this.otWin = value;  
+        }
     }
 
     },
@@ -78,12 +133,12 @@ export default {
       return {
         otWin: false,
         homeScore: 0,
-        awayScore: 0
+        awayScore: 0,
+        colorBlue: true
       }
     },
     methods: {
         submitScore(homeScore, awayScore, otWin) {
-            this.$refs.matchObject.style.backgroundColor = '#42d9f4';
             //Home wins
             if (homeScore - awayScore > 0) {
                 let matchResult = {
@@ -124,6 +179,10 @@ export default {
         top: 50%;
         -ms-transform: translateY(-50%);
         transform: translateY(-50%);
+    }
+
+    .submittedMatch {
+        background-color: lightblue;
     }
 </style>
 

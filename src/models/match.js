@@ -5,7 +5,15 @@ export default class Match {
         id = null;
         homeTeamId = null;
         awayTeamId = null;
-        matchResult = {};
+        matchResult = {
+          matchId: '',
+          winner: '',
+          loser: '',
+          overTime: false,
+          winnerScore: 0,
+          loserScore: 0,
+          groupId: '',
+        };
         scoresSubmitted = false;
 
         constructor(o, store) {

@@ -58,6 +58,54 @@ app.post('/', (req, res) => {
     })
   })
 
+  // Add new post
+app.put('/:id', async (req, res) => {
+  var db = req.db;
+  var title = req.body.title;
+  var description = req.body.description;
+  console.log("Heheheee")
+  console.log(req.body)
+  // let newTournament = new Tournament(req.body.tournament)
+
+  // newTournament.save(function (error) {
+  //   if (error) {
+  //     console.log(error)
+  //     return;
+  //   }
+  //   res.send({
+  //     createdTournament: newTournament,
+  //     success: true,
+  //     message: 'Tournament saved successfully!'
+  //   })
+  // })
+
+  let tournament
+  try{
+    tournament = await Tournament.find({
+      id: req.params.id,
+    });
+  } catch(err) {
+    return res.status(500).send({error: 'Error finding course from database'})
+  }
+
+  tournament[0].teams = req.body.params.tournament.teams
+  tournament[0].groups = req.body.params.tournament.groups
+
+  console.log("Tournament: ")
+  console.log(tournament)
+
+  tournament[0].save(function (error) {
+    if (error) {
+      console.log(error)
+      return res.status(500).send({error: 'Error updating tournament'})
+    }
+    return res.status(201).send({
+      success: true,
+      tournament: tournament
+    })
+  })
+})
+
 
 
 app.listen(process.env.PORT || 8081)

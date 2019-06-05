@@ -81,6 +81,11 @@ export default new Vuex.Store({
 
       state.tournament.groups.find(g => g.id === matchResult.groupId).matches
       .find(m => m.id === matchResult.matchId).scoresSubmitted = true;
+
+      state.tournament.groups
+      .find(g => g.id === matchResult.groupId).teams = state.tournament.groups
+      .find(g => g.id === matchResult.groupId).teams
+      .sort((a, b) => b.points - a.points);
     }
   },
   actions: {

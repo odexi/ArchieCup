@@ -15,16 +15,16 @@
         </v-tooltip>
       </template>
       <template v-slot:items="props">
-        <td>{{ props.item.player }}</td>
-        <td class="text-xs-right">{{ props.item.team }}</td>
-        <td class="text-xs-right">{{ props.item.gamesPlayed }}</td>
-        <td class="text-xs-right">{{ props.item.wins }}</td>
-        <td class="text-xs-right">{{ props.item.loses }}</td>
-        <td class="text-xs-right">{{ props.item.overtimeLoses }}</td>
-        <td class="text-xs-right">{{ props.item.goalsFor }}</td>
-        <td class="text-xs-right">{{ props.item.goalsAgainst }}</td>
-        <td class="text-xs-right">{{ props.item.goalsFor - props.item.goalsAgainst }}</td>
-        <td class="text-xs-right">{{ props.item.points }}</td>
+        <td style="text-align: left;">{{ props.item.player }}</td>
+        <td style="text-align: left;">{{ props.item.team }}</td>
+        <td style="text-align: left;">{{ props.item.gamesPlayed }}</td>
+        <td style="text-align: left;">{{ props.item.points }}</td>
+        <td style="text-align: left;">{{ props.item.wins }}</td>
+        <td style="text-align: left;">{{ props.item.loses }}</td>
+        <td style="text-align: left;">{{ props.item.overtimeLoses }}</td>
+        <td style="text-align: left;">{{ props.item.goalsFor }}</td>
+        <td style="text-align: left;">{{ props.item.goalsAgainst }}</td>
+        <td style="text-align: left;">{{ props.item.goalsFor - props.item.goalsAgainst }}</td>
       </template>
     </v-data-table>
       </v-flex>
@@ -66,26 +66,16 @@ export default {
           value: 'team'
         },
         { text: 'GP', value: 'gp' },
+        { text: 'PTS', value: 'pts' },
         { text: 'W', value: 'w' },
         { text: 'L', value: 'l' },
         { text: 'OTL', value: 'otl' },
         { text: 'GF', value: 'gf' },
         { text: 'GA', value: 'ga' },
         { text: 'DIFF', value: 'diff' },
-        { text: 'PTS', value: 'pts' }
       ],
-      teams: [
-        {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: '1%'
-        },
-      ]
     }
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>

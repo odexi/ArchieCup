@@ -268,8 +268,18 @@ export default {
       },
       {
         player: 'Mika',
-        team: 'Carolina Hurricanes',
-        goodPlayer: false
+        team: 'Tampa Bay Lightning',
+        goodPlayer: true
+      },
+      {
+        player: 'Jonni',
+        team: 'Columbus Blue Jackets',
+        goodPlayer: true
+      },
+      {
+        player: 'Okko',
+        team: 'Boston Bruins',
+        goodPlayer: true
       },
     ]
 

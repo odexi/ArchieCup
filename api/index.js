@@ -17,6 +17,7 @@ db.once("open", function(callback){
   console.log("Connection Succeeded");
 });
 
+// Load tournament
 app.get('/:id', async (req, res) => {
   console.log("JESJJSE")
     console.log(req)
@@ -36,7 +37,7 @@ app.get('/:id', async (req, res) => {
   })
 
 
-// Add new post
+// Create new tournament
 app.post('/', (req, res) => {
     var db = req.db;
     var title = req.body.title;
@@ -58,7 +59,7 @@ app.post('/', (req, res) => {
     })
   })
 
-  // Add new post
+  // Save tournament
 app.put('/:id', async (req, res) => {
   var db = req.db;
   var title = req.body.title;

@@ -30,13 +30,25 @@ export default {
         },
         async loadTournament() {
             console.log(this.tournamentId)
-      
-            let result = await PostsService.loadTournament({
-                id: this.tournamentId,
-            })
 
-            this.$store.dispatch('loadTournament', result.data[0]);
-            this.$store.dispatch('setGame', true);
+            try {
+                let result = await PostsService.loadTournament({
+                id: this.tournamentId,
+                })
+
+                if (result.status = 500) {
+                    this.$toast.error('Tournament with given id does not exist')
+                    return;
+                }
+
+                this.$store.dispatch('loadTournament', result.data[0]);
+                this.$store.dispatch('setGame', true);
+                this.$toast.success('Tournament loaded successfully!')
+            }
+            catch (err) {
+                this.$toast.error('Server error')
+            }
+            
         }
     }
 }

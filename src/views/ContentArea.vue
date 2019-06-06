@@ -73,13 +73,15 @@ export default {
   },
   methods: {
     async saveTournament() {
+      try {
       let result = await PostsService.updateTournament({
         tournament: this.tournament,
       })
-
-      console.log(result)
-      // this.$router.push({ name: 'Posts' })
-    
+      this.$toast.success('Tournament saved!')
+      }
+      catch (err) {
+        this.$toast.error('Saving failed!')
+      }
     },
     
   },

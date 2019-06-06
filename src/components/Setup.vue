@@ -185,11 +185,18 @@ export default {
       let id = guid();
       await this.$store.dispatch('setTournamentId', id);
       
-      let result = await PostsService.saveTournament({
+      try {
+        let result = await PostsService.saveTournament({
           tournament: this.tournament,
-      })
+        })
+        this.$toast.success('Tournament saved!')
+        console.log(result)
+      }
 
-      console.log(result)
+      catch (err) {
+        this.$toast.error('Saving failed!')
+      }
+      
     },
 
     isEven(n) {

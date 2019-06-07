@@ -85,7 +85,7 @@ export default new Vuex.Store({
       state.tournament.groups
       .find(g => g.id === matchResult.groupId).teams = state.tournament.groups
       .find(g => g.id === matchResult.groupId).teams
-      .sort((a, b) => b.points - a.points);
+      .sort((a, b) => b.points - a.points || (b.goalsFor - b.goalsAgainst) - (a.goalsFor - a.goalsAgainst));
     }
   },
   actions: {

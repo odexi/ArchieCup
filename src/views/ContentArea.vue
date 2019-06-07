@@ -1,10 +1,8 @@
 <template>
   <div class="setup">
     <div class="hero-img">
-      <img style="width: 100%; height: 200px; object-fit: cover; filter: brightness(0.3)" src="../img/icehockey.jpg">
-      <div class="site-title">
-        <h1 class="display-2 font-weight-bold" style="color: #ffffff">Archie Cup</h1>
-      </div>
+      <!-- <img style="width: 100%; height: 200px; object-fit: cover; filter: brightness(0.3)" src="../img/icehockey.jpg"> -->
+      <h1 class="display-2 font-weight-bold" style="color: #ffffff; margin: 0 auto;">Archie Cup</h1>
     </div>
     <div style="display: block; height: 80px;"></div>
     
@@ -96,16 +94,16 @@ export default {
     height: 100%;
   }
   .hero-img {
-    width: 100%;
-    height: 20%;
+    background-image: url("../img/icehockey-filter.jpg");
+    width: 100%; 
+    height: 200px; 
+    background-position: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
   }
   .site-title {
-    position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -100%);
-        width: 60%;
-        height: 40%;
         text-align: center;
   }
   .headline {

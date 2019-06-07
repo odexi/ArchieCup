@@ -1,7 +1,7 @@
 <template>
     <div>
-        <v-container grid-list-xs fluid>
-        <v-layout wrap v-bind:class="{ submittedMatch: !matchSubmitted }">
+        <v-container grid-list-xs fluid v-bind:class="{ submittedMatch: !matchSubmitted }">
+        <v-layout wrap>
           <v-flex xs12 sm6 style="position: relative">
               <div class="vertical-aligned-match-stuff">
                   <h3>{{ teams.find(t => t.id === match.homeTeamId).player }}</h3>

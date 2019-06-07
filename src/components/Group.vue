@@ -1,9 +1,9 @@
 <template>
   <div style="margin-top: 40px; width: 100%;">
       <v-spacer></v-spacer>
-      <v-container grid-list-xl>
+      <div grid-list-xl>
       <v-layout row wrap>
-        <v-flex xs12 sm12 md8>
+        <v-flex xs12 sm12 md7>
     <h2>Group {{group.groupNumber}}</h2>  
     <v-data-table :headers="headers" :items="group.teams" disable-initial-sort class="elevation-1">
       <template slot="headerCell" slot-scope="props">
@@ -28,7 +28,7 @@
       </template>
     </v-data-table>
       </v-flex>
-      <v-flex xs12 sm12 md4>
+      <v-flex xs12 sm12 md5 style="padding-left: 60px; padding-top: 30px; float: right">
         <v-card style="width:100%; height: 400px; overflow-y: scroll;">
           <Match v-for="match in group.matches" :key="match.id"
             :match="match"
@@ -36,7 +36,7 @@
           ></Match>
         </v-card>
       </v-flex>
-      </v-layout></v-container>
+      </v-layout></div>
     
   </div>
 </template>

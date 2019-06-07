@@ -35,8 +35,9 @@ export default {
                 let result = await PostsService.loadTournament({
                 id: this.tournamentId,
                 })
-
-                if (result.status = 500) {
+                console.log(result)
+                if (result.data === undefined || result.data.length == 0) {
+                    // array empty or does not exist
                     this.$toast.error('Tournament with given id does not exist')
                     return;
                 }

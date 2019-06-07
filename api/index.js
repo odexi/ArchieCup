@@ -27,6 +27,7 @@ app.get('/:id', async (req, res) => {
       tournament = await Tournament.find({
         id: req.params.id,
       });
+
     } catch(e) {
       console.log('Error retrieving course from db', e);
       return res.status(500).send({error:  'Error retrieveing course from database'})
